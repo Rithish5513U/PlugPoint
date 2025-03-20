@@ -1,2 +1,4 @@
-flask
-flask-cors
+fastapi
+pymongo[srv]
+fastapi-jwt-auth
+passlib

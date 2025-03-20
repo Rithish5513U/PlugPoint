@@ -1,19 +1,14 @@
-from flask import Flask
-from flask_cors import CORS
-import os
-from dotenv import load_dotenv
+from fastapi import FastAPI
+from config import Config
+from extensions import db
+from routes.userRoute import userRoute
 
-load_dotenv()
+app = FastAPI()
+app.include_router(userRoute, prefix='/user')
 
-app = Flask(__name__)
-CORS(app)
+users = db['users']
 
-@app.route('/')
+@app.get('/')
 def index():
-    return "<strong>Server running</strong>"
-
-def main():
-    app.run(port = os.getenv('PORT'))
-
-if __name__ == '__main__':
-    main()
+    print(f"Server running at port {Config.PORT}")
+    return {'message': 'Connected to server successfully'}
